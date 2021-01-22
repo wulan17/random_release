@@ -1,0 +1,12 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+- name: kernel
+  image: archlinux
+  commands:
+  - bash build.sh
+  environment:
+    token:
+      from_secret: github_key
