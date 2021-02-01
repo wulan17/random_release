@@ -2,7 +2,7 @@
 # Original PKGBUILD Contributor: Patrick Bartels <p4ddy.b@gmail.com>
 # Thanks to Bregol
 pkgname="linux-zen-git"
-pkgver=5.10.11
+pkgver=5.10.12
 _kernver=4.19.0+783746+g54d1f99f63e9
 pkgdesc="Featureful kernel including various new features, code and optimizations to better suit desktops"
 url="https://github.com/damentz/zen-kernel"
@@ -20,11 +20,13 @@ source=("linux-zen-wulan17.conf"
         'git://github.com/damentz/zen-kernel.git#branch=5.10/master'
         'allow-disable-msr-lockdown.patch'
         '5.10.9.patch'
-        'warn-when-having-multiple-ids-for-single-type.patch')
+        'warn-when-having-multiple-ids-for-single-type.patch'
+        'remove_plus_char_from_localversion.patch')
 sha256sums=('SKIP'
             'SKIP'
             'SKIP'
             'd19b97eb71b00d750c76aaf4bb2c4f783bebdfd36eb262219214e450c891a41d'
+            'SKIP'
             'SKIP'
             'SKIP')
 
@@ -111,6 +113,7 @@ build() {
 
 	patch -Np1 -i "${srcdir}/5.10.9.patch"
 	patch -Np1 -i "${srcdir}/warn-when-having-multiple-ids-for-single-type.patch"
+	patch -Np1 -i "${srcdir}/remove_plus_char_from_localversion.patch"
 
 	msg2 "Updating output directory Makefile..."
 	make -C "${srcdir}/zen-kernel/" O="${srcdir}/build" outputmakefile

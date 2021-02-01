@@ -7,7 +7,7 @@ sed -i 's,!ccache,ccache,g' /etc/makepkg.conf
 useradd --create-home wulan17
 usermod --append --groups wheel wulan17
 echo "wulan17 ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers
-cp 5.10.9.patch allow-disable-msr-lockdown.patch warn-when-having-multiple-ids-for-single-type.patch PKGBUILD .config .SRCINFO  linux-zen-wulan17.conf linux-zen-wulan17.install linux-zen-wulan17.preset /home/wulan17/
+cp 5.10.9.patch allow-disable-msr-lockdown.patch warn-when-having-multiple-ids-for-single-type.patch remove_plus_char_from_localversion.patch PKGBUILD .config .SRCINFO  linux-zen-wulan17.conf linux-zen-wulan17.install linux-zen-wulan17.preset /home/wulan17/
 chown -R wulan17 /home/wulan17
 cd /home/wulan17
 su wulan17 -c 'mkdir src'
