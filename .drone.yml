@@ -4,7 +4,7 @@ name: default
 
 steps:
 - name: kernel
-  image: archlinux
+  image: archlinux/archlinux
   commands:
   - bash build.sh
   environment:
