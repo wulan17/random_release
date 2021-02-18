@@ -4,7 +4,7 @@ name: default
 
 steps:
 - name: kernel
-  image: xaviblanes/manjaro
+  image: archlinux
   commands:
   - bash build.sh
   environment:
