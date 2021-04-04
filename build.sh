@@ -15,9 +15,12 @@ su wulan17 -c 'cp .config src/build/'
 export BUILD_START=$(date +"%s")
 su wulan17 -c 'makepkg -s --noconfirm'
 export BUILD_END=$(date +"%s")
-su wulan17 -c "git clone https://wulan17:$token@github.com/wulan17/credentials.git -b up2 upload"
-pacman --noconfirm -S python python-pip glibc 
-su wulan17 -c 'pip install telethon tgcrypto'
-su wulan17 -c 'pip install -r upload/requirements.txt'
-export build_time=$((BUILD_END - BUILD_START))
-su wulan17 -c 'bash upload/up.sh $(pwd)/linux-zen-git-5.11*.pkg.* $(pwd)/linux-zen-git-headers-5.11*.pkg.*'
+if [[ ! -z $(linux-zen-git-5.11*.pkg.* | cut -d "/" -f 5) ]]; then
+	export filename="$(ls linux-zen-git-5.11*.pkg.*)"
+	export headername="$(ls linux-zen-git-headers-5.11*.pkg.*)"
+	curl -F secret="$ci_secret" -F document=@"$(pwd)"/"$filename" -F caption="Build success\nFilename: $filename" https://ci.wulan17.my.id/sendDocument
+	curl -F secret="$ci_secret" -F document=@"$(pwd)"/"$headername" -F caption="Build success\nFilename: $headername" https://ci.wulan17.my.id/sendDocument
+	exit 0
+else
+	exit 1
+fi
